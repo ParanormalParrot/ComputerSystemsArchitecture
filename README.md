@@ -54,7 +54,7 @@ int main() {
 $gcc -masm=intel -fno-asynchronous-unwind-tables -fno-jump-tables -fno-stack-protector -fno-exceptions 4points.c -S -o 4points.s
 ```
 - Добавлены функции с предачей по параметрам
-- Некторые переменные перенесены в регистры
+- В файле [main_optimised.s] некторые переменные перенесены в регистры
 
 Изменения в функции integrate:
 
@@ -66,6 +66,6 @@ $gcc -masm=intel -fno-asynchronous-unwind-tables -fno-jump-tables -fno-stack-pro
 
 - переменная step (-24[rbp]) заменена на xmm7
 
-В файле [*tests.txt*](./4_points/tests.txt) представлены тесты.
-В файле [*results-c.txt*](./4_points/results-c.txt) представлены результаты для программы на языке С.
-В файле [*results-s.txt*](./4_points/results-s.txt) представлены результаты для программы на языке ассемблера.
+В файле [*tests.txt*] представлены тесты.
+В файле [*results-c.txt*] представлены результаты для программы на языке С.
+В файле [*results-s.txt*] представлены результаты для программы на языке ассемблера.
