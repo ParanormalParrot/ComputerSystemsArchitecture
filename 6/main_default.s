@@ -45,22 +45,22 @@ integrate:
 	addsd	xmm1, QWORD PTR -24[rbp]
 	movsd	xmm0, QWORD PTR -48[rbp]
 	mov	rax, QWORD PTR -40[rbp]
-	movapd	xmm2, xmm1
-	movapd	xmm1, xmm0
-	movq	xmm0, rax
-	call	f
+	movapd	xmm2, xmm1	# Передача третьего параметра в f
+	movapd	xmm1, xmm0	# Передача второго параметра в f
+	movq	xmm0, rax	# Передача первого параметра в f
+	call	f	# вызов функции f
 	movsd	QWORD PTR -64[rbp], xmm0
 	movsd	xmm1, QWORD PTR -16[rbp]
 	movsd	xmm0, QWORD PTR -48[rbp]
 	mov	rax, QWORD PTR -40[rbp]
-	movapd	xmm2, xmm1
-	movapd	xmm1, xmm0
-	movq	xmm0, rax
-	call	f
+	movapd	xmm2, xmm1	# Передача третьего параметра в f
+	movapd	xmm1, xmm0	# Передача второго параметра в f
+	movq	xmm0, rax	# Передача первого параметра в f
+	call	f	 # вызов функции f
 	addsd	xmm0, QWORD PTR -64[rbp]
 	mulsd	xmm0, QWORD PTR -24[rbp]
 	movsd	xmm1, QWORD PTR .LC2[rip]
-	divsd	xmm0, xmm1
+	divsd	xmm0, xmm1	
 	movsd	xmm1, QWORD PTR -8[rbp]
 	addsd	xmm0, xmm1
 	movsd	QWORD PTR -8[rbp], xmm0
@@ -158,10 +158,10 @@ main:   # точка взода в программму
 	mov	edx, DWORD PTR -28[rbp]
 	movsd	xmm0, QWORD PTR -24[rbp]
 	mov	rax, QWORD PTR -16[rbp]
-	mov	esi, ecx
-	mov	edi, edx
-	movapd	xmm1, xmm0
-	movq	xmm0, rax
+	mov	esi, ecx	# Передача параметра upper в integrate
+	mov	edi, edx	# Передача параметра lower в integrate
+	movapd	xmm1, xmm0	# Передача параметра b в integrate 
+	movq	xmm0, rax	#  Передача параметра a в integrate
 	call	integrate   # вызов функции integrate
 	movq	rax, xmm0
 	mov	QWORD PTR -8[rbp], rax
