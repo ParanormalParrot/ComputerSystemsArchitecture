@@ -34,13 +34,13 @@ integrate:
 	movsd	xmm0, QWORD PTR .LC0[rip]
 	movsd	xmm7, xmm0    # переменная step (-24[rbp]) заменена на xmm7
 	pxor	xmm0, xmm0  
-	movsd	QWORD PTR -8[rbp], xmm0 # res = 0
+	movsd	xmm9, xmm0 # переменная res (-8[rbp]) заменена на xmm9
 	pxor	xmm0, xmm0
 	cvtsi2sd	xmm0, DWORD PTR -52[rbp]
-	movsd	QWORD PTR -16[rbp], xmm0    # i = lower
+	movsd	xmm8, xmm0    # переменная i (-16[rbp]) заменена на xmm8
 	jmp	.L4
 .L5:
-	movsd	xmm0, QWORD PTR -16[rbp]
+	movsd	xmm0, xmm8
 	movapd	xmm1, xmm0
 	addsd	xmm1, xmm7
 	movsd	xmm0, QWORD PTR -48[rbp]
@@ -50,7 +50,7 @@ integrate:
 	movq	xmm0, rax
 	call	f   # вызов функции f
 	movsd	QWORD PTR -64[rbp], xmm0
-	movsd	xmm1, QWORD PTR -16[rbp]
+	movsd	xmm1, xmm8
 	movsd	xmm0, QWORD PTR -48[rbp]
 	mov	rax, QWORD PTR -40[rbp]
 	movapd	xmm2, xmm1
@@ -61,18 +61,18 @@ integrate:
 	mulsd	xmm0, xmm7
 	movsd	xmm1, QWORD PTR .LC2[rip]
 	divsd	xmm0, xmm1
-	movsd	xmm1, QWORD PTR -8[rbp] # res += (f(a, b, i + step) + f(a, b, i)) * step / 2;
+	movsd	xmm1, xmm9 # res += (f(a, b, i + step) + f(a, b, i)) * step / 2;
 	addsd	xmm0, xmm1
-	movsd	QWORD PTR -8[rbp], xmm0
-	movsd	xmm0, QWORD PTR -16[rbp]
+	movsd	xmm9, xmm0
+	movsd	xmm0, xmm8
 	addsd	xmm0, xmm7
-	movsd	QWORD PTR -16[rbp], xmm0
+	movsd	xmm8, xmm0
 .L4:
 	pxor	xmm0, xmm0
 	cvtsi2sd	xmm0, DWORD PTR -56[rbp]
-	comisd	xmm0, QWORD PTR -16[rbp]
+	comisd	xmm0, xmm8
 	ja	.L5
-	movsd	xmm0, QWORD PTR -8[rbp]
+	movsd	xmm0, xmm9
 	movq	rax, xmm0
 	movq	xmm0, rax
 	leave
